@@ -16,3 +16,7 @@ string Person::printname() const {
 string Person::getName() {
 	return name;
 }
+
+bool Person::operator>(Person *rhs) {
+	return name > rhs->name;
+}

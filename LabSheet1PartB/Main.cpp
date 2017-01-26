@@ -2,6 +2,8 @@
 #include "Employee.h"
 #include <iostream>
 
+void printArray(Person*[]);
+
 int main() {
 	// ********* 1st Version of Program When Person is not Abstract *********
 	/*Person *personPtr = new Person("Mark");
@@ -29,14 +31,20 @@ int main() {
 	peopleArray[5] = new Customer("Daniel", "and I want to make a complaint");
 
 	cout << "\nArray unsorted\n\n";
+	printArray(peopleArray);
+
+	// Create a duplicate of the unsorted values which are
+	// used later on for sorting without overloaded operators
+	Person *duplicateUnsortedArray[6];
 	for (int i = 0; i < 6; i++) {
-		cout << peopleArray[i]->printname() << "\n";
+		duplicateUnsortedArray[i] = peopleArray[i];
 	}
 
+	// Now using operator overloading to sort the array from A-Z order
 	Person *personHolder;
 	for (int i = 0; i < 6; i++) {
 		for (int j = i + 1; j < 6; j++) {
-			if (peopleArray[i]->getName() > peopleArray[j]->getName()) {
+			if (peopleArray[i]->operator>(peopleArray[j])) {
 				personHolder = peopleArray[i];
 				peopleArray[i] = peopleArray[j];
 				peopleArray[j] = personHolder;
@@ -44,11 +52,28 @@ int main() {
 		}
 	}
 
-	cout << "\nArray sorted\n\n";
+	cout << "\nArray sorted using operator overloading\n\n";
+	printArray(peopleArray);
+
 	for (int i = 0; i < 6; i++) {
-		cout << peopleArray[i]->printname() << "\n";
+		for (int j = i + 1; j < 6; j++) {
+			if (duplicateUnsortedArray[i]->getName() > duplicateUnsortedArray[j]->getName()) {
+				personHolder = duplicateUnsortedArray[i];
+				duplicateUnsortedArray[i] = duplicateUnsortedArray[j];
+				duplicateUnsortedArray[j] = personHolder;
+			}
+		}
 	}
+
+	cout << "\nArray sorted not using operator overloading\n\n";
+	printArray(duplicateUnsortedArray);
 
 	system("pause");
 	return(0);
+}
+
+void printArray(Person* peopleArray[]) {
+	for (int i = 0; i < 6; i++) {
+		cout << peopleArray[i]->printname() << "\n";
+	}
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 using namespace std;
 
 // Non abstract Person class
@@ -15,7 +16,7 @@ public:
 	virtual string printname();
 };*/
 
-// Abstract Person Class - Difference is that an object of type Person cannot be instantiated
+// Abstract Person Class - Difference is that an object of type Person cannot be instantiated of type Person
 class Person {
 private:
 	string name;
@@ -25,4 +26,5 @@ public:
 	Person(string);
 	virtual string printname() const = 0;
 	string getName();
+	bool operator >(Person*);
 };
