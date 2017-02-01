@@ -150,7 +150,7 @@ template <typename T> int partition(T *arrayToSort, int left, int right)
 
 
 /*
-* Question 3 Part 2
+* Question 4
 * Based on code found at http://www.geeksforgeeks.org/iterative-quick-sort/
 * on the 1/2/2017
 */
