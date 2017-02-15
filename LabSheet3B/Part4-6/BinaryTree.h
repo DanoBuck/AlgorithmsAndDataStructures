@@ -19,6 +19,8 @@ private:
 
 public:
 	BinaryTree();
+	~BinaryTree();
+	void destroy(TreeNode*);
 	void insert(char);
 	bool search(TreeNode *, char);
 	TreeNode* getRoot() { return root; }

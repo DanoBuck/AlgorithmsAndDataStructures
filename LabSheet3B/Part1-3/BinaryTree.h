@@ -9,6 +9,8 @@ private:
 	int height(TreeNode*);
 public:
 	BinaryTree();
+	~BinaryTree();
+	void destroy(TreeNode*);
 	void add(int);
 	void preorder(TreeNode*);
 	TreeNode* getRoot();
