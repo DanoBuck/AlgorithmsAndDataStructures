@@ -42,10 +42,24 @@ template<typename T> BinaryTree<T>::BinaryTree() {
 	root = NULL;
 }
 
+/***************************************************************************************
+
+*    Usage: Used
+*    Date: 15/2/2017
+*    Availability: http://stackoverflow.com/questions/34170164/destructor-for-binary-search-tree 
+*
+***************************************************************************************/
 template<typename T> BinaryTree<T>::~BinaryTree() {
 	destroy(root);
 }
 
+/***************************************************************************************
+
+*    Usage: Used
+*    Date: 15/2/2017
+*    Availability: http://stackoverflow.com/questions/34170164/destructor-for-binary-search-tree 
+*
+***************************************************************************************/
 template<typename T> void BinaryTree<T>::destroy(TreeNode<T> *root) {
 	if (root != NULL) {
 		destroy(root->left);

@@ -95,11 +95,26 @@ bool BinaryTree::search(TreeNode *root, char searchFor) {
 	}
 }
 
-void BinaryTree::printAscendingOrder(TreeNode *root) {
-	// Printing the tree in ascending order i.e. A-Z in this case
+void BinaryTree::printPreOrder(TreeNode *root) {
 	if (root != NULL) {
-		printAscendingOrder(root->left);
 		cout << root->data << "\n";
-		printAscendingOrder(root->right);
+		printPreOrder(root->left);
+		printPreOrder(root->right);
+	}
+}
+
+void BinaryTree::printInOrder(TreeNode *root) {
+	if (root != NULL) {
+		printInOrder(root->left);
+		cout << root->data << "\n";
+		printInOrder(root->right);
+	}
+}
+
+void BinaryTree::printPostOrder(TreeNode *root) {
+	if (root != NULL) {
+		printPostOrder(root->left);
+		printPostOrder(root->right);
+		cout << root->data << "\n";
 	}
 }

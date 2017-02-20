@@ -6,10 +6,24 @@ BinaryTree::BinaryTree() {
 	root = NULL;
 }
 
+/***************************************************************************************
+
+*    Usage: Used
+*    Date: 15/2/2017
+*    Availability: http://stackoverflow.com/questions/34170164/destructor-for-binary-search-tree 
+*
+***************************************************************************************/
 BinaryTree::~BinaryTree() {
 	destroy(root);
 }
 
+/***************************************************************************************
+
+*    Usage: Used
+*    Date: 15/2/2017
+*    Availability: http://stackoverflow.com/questions/34170164/destructor-for-binary-search-tree 
+*
+***************************************************************************************/
 void BinaryTree::destroy(TreeNode *root) {
 	if (root != NULL) {
 		destroy(root->left);
@@ -62,14 +76,12 @@ void BinaryTree::add(int dataIn) {
 }
 
 int BinaryTree::height(TreeNode *node) {
-	int left = 0;
-	int right = 0;
-	if (node->getLeft() != NULL) {
-		left = height(node->getLeft());
+	if (root == NULL) {
+		return -1;
 	}
-	else if (node->getRight() != NULL) {
-		right = height(node->getRight());
-	}
+	
+	int left = height(node->getLeft());
+	int right = height(node->getRight());
 
 	if (left > right) {
 		return left + 1;
@@ -80,9 +92,5 @@ int BinaryTree::height(TreeNode *node) {
 }
 
 int BinaryTree::height() {
-	if (root == NULL) {
-		return -1;
-	}
-
 	return height(root);
 }
