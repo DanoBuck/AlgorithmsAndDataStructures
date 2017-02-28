@@ -86,3 +86,58 @@ int BinaryTree::maxValue() {
 	}
 	return (maxValue(root));
 }
+
+int BinaryTree::isBST() {
+	return isBST(root);
+}
+
+/***************************************************************************************
+*
+*    Usage: used
+*    Date: 28/2/2017
+*    Availability: http://www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/
+*
+***************************************************************************************/
+int BinaryTree::isBST(TreeNode *root) {
+	if (root == NULL) {
+		return true;
+	}
+
+	if (root->left != NULL && maxValue(root->left) > root->data) {
+		return false;
+	}
+
+	if (root->right != NULL && minValue(root->right) < root->data) {
+		return false;
+	}
+
+	if (!isBST(root->left) || !isBST(root->right)) {
+		return false;
+	}
+}
+
+int BinaryTree::isBST2() {
+	return isBSTRecur(root, INT_MIN, INT_MAX);
+}
+
+/***************************************************************************************
+*
+*    Usage: Based
+*    Date: 28/2/2017
+*    Availability: http://www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/
+*
+***************************************************************************************/
+int BinaryTree::isBSTRecur(TreeNode *root, int min, int max) {
+	if (root == NULL) {
+		return true;
+	}
+
+	if (root->data < min || root->data > max) {
+		return false;
+	}
+
+	bool left = isBSTRecur(root->left, min, root->data);
+	bool right = isBSTRecur(root->right, root->data, max);
+
+	return left && right;
+}

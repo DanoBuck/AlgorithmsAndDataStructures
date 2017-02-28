@@ -18,6 +18,8 @@ private:
 	void insert(TreeNode*, TreeNode*);
 	int minValue(TreeNode*);
 	int maxValue(TreeNode*);
+	int isBST(TreeNode *);
+	int isBSTRecur(TreeNode*, int, int);
 public:
 	BinaryTree();
 	void insert(int);
@@ -25,4 +27,6 @@ public:
 	TreeNode* getRoot();
 	int minValue();
 	int maxValue();
+	int isBST();
+	int isBST2();
 };
