@@ -18,6 +18,18 @@ BinaryTree::BinaryTree() {
 	root = NULL;
 }
 
+BinaryTree::~BinaryTree() {
+	destroy(root);
+}
+
+void BinaryTree::destroy(TreeNode *root) {
+	if (root != NULL) {
+		destroy(root->left);
+		destroy(root->right);
+		delete root;
+	}
+}
+
 void BinaryTree::insert(TreeNode *newNode, TreeNode *root) {
 	if (newNode->data < root->data) {
 		if (root->left != NULL) {

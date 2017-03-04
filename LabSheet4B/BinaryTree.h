@@ -22,6 +22,8 @@ private:
 	int isBSTRecur(TreeNode*, int, int);
 public:
 	BinaryTree();
+	~BinaryTree();
+	void destroy(TreeNode*);
 	void insert(int);
 	void print(TreeNode*);
 	TreeNode* getRoot();
