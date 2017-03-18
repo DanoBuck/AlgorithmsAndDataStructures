@@ -3,7 +3,6 @@
 
 City::City() {
 	city = "";
-	// Pair instanciation
 	coordinates = { 0.0, 0.0 };
 	population = 0;
 	averageTemp = 0;
@@ -11,7 +10,6 @@ City::City() {
 
 City::City(string name, double longitude, double latitude, int populationIn, double avg) {
 	city = name;
-	// Pair instanciation
 	coordinates = { longitude, latitude };
 	population = populationIn;
 	averageTemp = avg;

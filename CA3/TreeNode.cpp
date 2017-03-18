@@ -13,5 +13,5 @@ TreeNode::TreeNode(City cityIn) {
 }
 
 bool TreeNode::isLeaf() {
-	return left == NULL || right == NULL;
+	return left == NULL && right == NULL;
 }
