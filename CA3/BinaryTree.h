@@ -9,9 +9,10 @@ private:
 	int height(TreeNode*);
 	bool searchByCoordinate(TreeNode*, pair<double, double>);
 	bool searchByName(TreeNode*, string);
-	TreeNode* deleteByCoordinates(pair<double, double>, TreeNode *,TreeNode *);
 	TreeNode* deleteByName(string, TreeNode *, TreeNode *);
+	TreeNode* deleteByNameAndCoordinates(string, pair<double, double>, TreeNode *, TreeNode *);
 	TreeNode* getMin(TreeNode*);
+	TreeNode* findCityByCoordinates(pair<double, double>, TreeNode*);
 public:
 	BinaryTree();
 	~BinaryTree();
@@ -24,6 +25,8 @@ public:
 	int height();
 	bool searchByCoordinate(pair<double, double>);
 	bool searchByName(string);
-	bool deleteByCoordinates(pair<double, double>);
+	TreeNode* findCityByCoordinates(pair<double, double>);
+	bool deleteByCoordinatesHelper(pair<double, double>);
+	bool deleteByNameAndCoordinates(string, pair<double, double>);
 	bool deleteByName(string);
 };
