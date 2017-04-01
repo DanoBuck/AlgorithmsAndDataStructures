@@ -11,7 +11,7 @@ private:
 	bool searchByName(TreeNode*, string);
 	TreeNode* deleteByName(string, TreeNode *, TreeNode *);
 	TreeNode* deleteByNameAndCoordinates(string, pair<double, double>, TreeNode *, TreeNode *);
-	TreeNode* getMin(TreeNode*);
+	City getMin(TreeNode*);
 	TreeNode* findCityByCoordinates(pair<double, double>, TreeNode*);
 public:
 	BinaryTree();

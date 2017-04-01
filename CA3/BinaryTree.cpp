@@ -149,26 +149,26 @@ bool BinaryTree::searchByName(TreeNode *root, string name) {
 	}
 }
 
-bool BinaryTree::deleteByName(string name) {
+bool BinaryTree::deleteByName(string data) {
 	if (root == NULL) {
 		return false;
 	}
 	else {
-		if (name == root->city.city) {
-			TreeNode *temp = new TreeNode();
-			temp->left = root;
-			TreeNode *toDelete = deleteByName(name, temp, root);
-			root = temp->left;
-			if (toDelete != NULL) {
-				delete toDelete;
+		if (root->city.city == data) {
+			TreeNode *tempNode = new TreeNode();
+			tempNode->left = root;
+			TreeNode *nodeToRemove = deleteByName(data, tempNode, root);
+			root = tempNode->left;
+			if (nodeToRemove != NULL) {
+				delete nodeToRemove;
 				return true;
 			}
 			return false;
 		}
 		else {
-			TreeNode *toDelete = deleteByName(name, NULL, root);
-			if (toDelete != NULL) {
-				delete toDelete;
+			TreeNode *nodeToRemove = deleteByName(data, NULL, root);
+			if (nodeToRemove != NULL) {
+				delete nodeToRemove;
 				return true;
 			}
 			return false;
@@ -176,26 +176,27 @@ bool BinaryTree::deleteByName(string name) {
 	}
 }
 
-TreeNode* BinaryTree::deleteByName(string name, TreeNode *parent, TreeNode *root) {
-	if (name < root->city.city) {
+TreeNode* BinaryTree::deleteByName(string data, TreeNode *parent, TreeNode *root) {
+	if (data < root->city.city) {
 		if (root->left != NULL) {
-			return deleteByName(name, root, root->left);
+			return deleteByName(data, root, root->left);
 		}
 		return NULL;
 	}
-	else if (name > root->city.city) {
+	else if (data > root->city.city) {
 		if (root->right != NULL) {
-			return deleteByName(name, root, root->right);
+			return deleteByName(data, root, root->right);
 		}
 		return NULL;
 	}
 	else {
 		if (root->left != NULL && root->right != NULL) {
-			root = getMin(root->right);
+			root->city = getMin(root->right);
 			return deleteByName(root->city.city, root, root->right);
 		}
 		else if (parent->left == root) {
-			if (root->left != NULL) {
+			if (root->left != NULL)
+			{
 				parent->left = root->left;
 			}
 			else {
@@ -215,11 +216,11 @@ TreeNode* BinaryTree::deleteByName(string name, TreeNode *parent, TreeNode *root
 	}
 }
 
-TreeNode* BinaryTree::getMin(TreeNode *root) {
+City BinaryTree::getMin(TreeNode *root) {
 	if (root->left != NULL) {
 		return getMin(root->left);
 	}
-	return root;
+	return root->city;
 }
 
 TreeNode* BinaryTree::findCityByCoordinates(pair<double, double> coordinates, TreeNode *root) {
@@ -299,7 +300,7 @@ TreeNode* BinaryTree::deleteByNameAndCoordinates(string name, pair<double, doubl
 	}
 	else {
 		if (root->left != NULL && root->right != NULL) {
-			root = getMin(root->right);
+			root->city = getMin(root->right);
 			return deleteByNameAndCoordinates(root->city.city, root->city.coordinates, root, root->right);
 		}
 		else if (parent->left == root) {
