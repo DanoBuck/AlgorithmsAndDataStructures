@@ -120,10 +120,19 @@ bool BinaryTree::searchByCoordinate(TreeNode *root, pair<double, double> searchF
 	}
 }
 
+string toUpperCase(string uppercase) {
+	string result = "";
+	for (int i = 0; i < uppercase.length(); i++) {
+		result += toupper(uppercase[i]);
+	}
+	return result;
+}
+
 bool BinaryTree::searchByName(string name) {
 	if (root == NULL) {
 		return false;
 	}
+	name = toUpperCase(name);
 	return searchByName(root, name);
 }
 
@@ -131,7 +140,6 @@ bool BinaryTree::searchByName(TreeNode *root, string name) {
 	bool found = false;
 	if (!found && root != NULL) {
 		if (name == root->city.city) {
-			cout << "They are equal\n";
 			found = true;
 			return found;
 		}
@@ -142,7 +150,6 @@ bool BinaryTree::searchByName(TreeNode *root, string name) {
 			return searchByName(root->right, name);
 		}
 		else {
-			cout << "I am returning false\n";
 			found = false;
 			return found;
 		}
@@ -154,6 +161,7 @@ bool BinaryTree::deleteByName(string data) {
 		return false;
 	}
 	else {
+		data = toUpperCase(data);
 		if (root->city.city == data) {
 			TreeNode *tempNode = new TreeNode();
 			tempNode->left = root;
@@ -263,6 +271,7 @@ bool BinaryTree::deleteByNameAndCoordinates(string name, pair<double, double> co
 		return false;
 	}
 	else {
+		name = toUpperCase(name);
 		if (name == root->city.city && coordinates == root->city.coordinates) {
 			TreeNode *temp = new TreeNode();
 			temp->left = root;
@@ -301,6 +310,7 @@ TreeNode* BinaryTree::deleteByNameAndCoordinates(string name, pair<double, doubl
 	else {
 		if (root->left != NULL && root->right != NULL) {
 			root->city = getMin(root->right);
+			root->city.city = toUpperCase(root->city.city);
 			return deleteByNameAndCoordinates(root->city.city, root->city.coordinates, root, root->right);
 		}
 		else if (parent->left == root) {
@@ -322,4 +332,56 @@ TreeNode* BinaryTree::deleteByNameAndCoordinates(string name, pair<double, doubl
 			return root;
 		}
 	}
+}
+
+void BinaryTree::printAllRecordsInDistance(pair<double, double> point, double distanceBelow) {
+	if (root == NULL) {
+		return;
+	}
+	TreeNode* node = findCityByCoordinates(point);
+	string city = "";
+	if (node != NULL) {
+		city = node->city.city;
+	}
+	printAllRecordsInDistance(point, city, distanceBelow, root);
+}
+
+void BinaryTree::printAllRecordsInDistance(pair<double, double> point, string city, double distanceBelow, TreeNode*root) {
+	if (root != NULL) {
+		double distanceForCity = calculateDistance(point, root->city.coordinates);
+		if (distanceForCity <= distanceBelow) {
+			if (city != "") {
+				cout << root->city.city << " is " << distanceForCity << " KM away from the point " << point.first << ", " << point.second << " which is the city of " << city << "\n";
+			}
+			else {
+				cout << root->city.city << " is " << distanceForCity << " KM away from the point " << point.first << ", " << point.second << "\n";
+			}
+		}
+		printAllRecordsInDistance(point, city, distanceBelow, root->left);
+		printAllRecordsInDistance(point, city, distanceBelow, root->right);
+	}
+}
+
+/***************************************************************************************
+
+*    Usage: Based
+*    Date: 1/4/2017
+*    Availability: http://stackoverflow.com/questions/365826/calculate-distance-between-2-gps-coordinates
+*
+***************************************************************************************/
+double BinaryTree::calculateDistance(pair<double, double> city1, pair<double, double> city2) {
+	double PI = 3.14159265358979323846 / 180;
+
+	int earthRadiusKm = 6371;
+
+	double answerToBeSquared = sin(((city2.first - city1.first) * PI) / 2) 
+								* sin(((city2.first - city1.first) * PI) / 2) 
+								+ sin(((city2.second - city1.second) * PI) / 2)
+								* sin(((city2.second - city1.second) * PI) / 2)
+								* cos(city1.first * PI) * cos(city2.first * PI);
+
+	double answerSqaured = 2 * atan2(sqrt(answerToBeSquared), sqrt(1 - answerToBeSquared));
+	double distanceInKM = earthRadiusKm * answerSqaured;
+
+	return distanceInKM;
 }

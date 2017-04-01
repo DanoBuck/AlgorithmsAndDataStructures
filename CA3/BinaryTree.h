@@ -13,6 +13,7 @@ private:
 	TreeNode* deleteByNameAndCoordinates(string, pair<double, double>, TreeNode *, TreeNode *);
 	City getMin(TreeNode*);
 	TreeNode* findCityByCoordinates(pair<double, double>, TreeNode*);
+	void printAllRecordsInDistance(pair<double, double>, string, double, TreeNode*);
 public:
 	BinaryTree();
 	~BinaryTree();
@@ -29,4 +30,7 @@ public:
 	bool deleteByCoordinatesHelper(pair<double, double>);
 	bool deleteByNameAndCoordinates(string, pair<double, double>);
 	bool deleteByName(string);
+
+	double calculateDistance(pair<double, double>, pair<double, double>);
+	void printAllRecordsInDistance(pair<double, double>, double);
 };

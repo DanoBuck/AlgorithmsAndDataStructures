@@ -30,11 +30,11 @@ int main() {
 	cout << "**********Pre Order**********\n";
 	newTree.printPreOrder(newTree.getRoot());
 
-	cout << "\n**********In Order**********\n";
-	newTree.printInOrder(newTree.getRoot());
+	//cout << "\n**********In Order**********\n";
+	//newTree.printInOrder(newTree.getRoot());
 
-	cout << "\n**********Post Order**********\n";
-	newTree.printPostOrder(newTree.getRoot());
+	//cout << "\n**********Post Order**********\n";
+	//newTree.printPostOrder(newTree.getRoot());
 
 	cout << "\nHeight of this tree is: " << newTree.height() << "\n";
 
@@ -43,14 +43,20 @@ int main() {
 	cout << "Searching for Galway: " << existsInTree(newTree.searchByName("Galway")) << "\n";
 	cout << "Searching for sky: " << existsInTree(newTree.searchByName("sky")) << "\n";
 
-	cout << "\nDeleting Cork by name: " << existsInTree(newTree.deleteByName("CORK")) << "\n";
+	cout << "\nDistance from Dublin to California is: " << newTree.calculateDistance({ 53.349805, -6.26031 }, { 36.778261, -119.417932 }) << " KM\n";
+	cout << "Distance from Dublin to Galway is: " << newTree.calculateDistance({ 53.349805, -6.26031 }, { 53.270668, -9.056791 }) << " KM\n";
+
+	cout << "\nDeleting Cork by name: " << existsInTree(newTree.deleteByName("cork")) << "\n";
 	cout << "Deleting Galway by 53.270668, -9.056791: " << existsInTree(newTree.deleteByCoordinatesHelper({ 53.270668, -9.056791 })) << "\n";
 	cout << "Deleting Dublin by coordinates 53.349805, -6.26031: " << existsInTree(newTree.deleteByCoordinatesHelper({ 53.349805, -6.26031 })) << "\n";
 	cout << "Deleting City which doesn't exist by coordinates 0, 0: " << existsInTree(newTree.deleteByCoordinatesHelper({ 0, 0 })) << "\n";
-	cout << "Deleting California by name: " << existsInTree(newTree.deleteByName("CALIFORNIA")) << "\n";
+	cout << "Deleting California by name and coordinates: " << existsInTree(newTree.deleteByNameAndCoordinates("CALIFORNia", { 36.778261, -119.417932 })) << "\n";
 	cout << "Deleting City which doesn't exist by name: " << existsInTree(newTree.deleteByName("assddsds")) << "\n";
 	cout << "\n**********In Order**********\n";
 	newTree.printInOrder(newTree.getRoot());
+
+	cout << "\n";
+	newTree.printAllRecordsInDistance({ 53.349805, -6.26031 }, 10000);
 
 	system("pause");
 	return 0;
