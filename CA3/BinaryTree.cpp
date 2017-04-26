@@ -1,3 +1,6 @@
+// Daniel Buckley
+// X00109141
+
 #include "BinaryTree.h"
 #include <iostream>
 using namespace std;
@@ -10,6 +13,8 @@ BinaryTree::~BinaryTree() {
 	destroy(root);
 }
 
+// Helper method used in destructor to destroy the tree and
+// free the memory consumed by it
 void BinaryTree::destroy(TreeNode* root) {
 	if (root != NULL) {
 		destroy(root->left);
@@ -27,6 +32,11 @@ void BinaryTree::insert(City city) {
 	insert(newNode, root);
 }
 
+// Method to allow insert into the tree, figures out whether
+// the node should be placed left or right depending on the
+// value of the city name. This method does not allow objects
+// to be entered if they have the same coordinates as an object
+// already in the tree
 void BinaryTree::insert(TreeNode *newNode, TreeNode *root) {
 	bool alreadyExists = searchByCoordinate(root, { newNode->city.coordinates.first, newNode->city.coordinates.second });
 	if (!alreadyExists) {
@@ -77,6 +87,9 @@ int BinaryTree::height() {
 	return height(root);
 }
 
+// Gets the height of the tree by checking the
+// right and left side of the tree and checks which
+// side is bigger, that is then returned
 int BinaryTree::height(TreeNode *node) {
 	if (node == NULL) {
 		return -1;
@@ -100,6 +113,7 @@ bool BinaryTree::searchByCoordinate(pair<double, double> searchFor) {
 	return searchByCoordinate(root, searchFor);
 }
 
+// Searches the tree to check if coordinates exist
 bool BinaryTree::searchByCoordinate(TreeNode *root, pair<double, double> searchFor) {
 	bool found = false;
 	if (!found && root != NULL) {
@@ -120,6 +134,7 @@ bool BinaryTree::searchByCoordinate(TreeNode *root, pair<double, double> searchF
 	}
 }
 
+// Used for comparisons, changes string to upper
 string toUpperCase(string uppercase) {
 	string result = "";
 	for (int i = 0; i < uppercase.length(); i++) {
@@ -136,6 +151,7 @@ bool BinaryTree::searchByName(string name) {
 	return searchByName(root, name);
 }
 
+// Searches the tree for city name
 bool BinaryTree::searchByName(TreeNode *root, string name) {
 	bool found = false;
 	if (!found && root != NULL) {
@@ -156,6 +172,10 @@ bool BinaryTree::searchByName(TreeNode *root, string name) {
 	}
 }
 
+// This deletes a node by city name although it may lead to the
+// incorrect city being deleted as there may be cities in the
+// tree with the same name so I would advise against using this
+// method and use the coordinates delete or name and coordinate delete
 bool BinaryTree::deleteByName(string data) {
 	if (root == NULL) {
 		return false;
@@ -184,6 +204,7 @@ bool BinaryTree::deleteByName(string data) {
 	}
 }
 
+// Private helper for method above
 TreeNode* BinaryTree::deleteByName(string data, TreeNode *parent, TreeNode *root) {
 	if (data < root->city.city) {
 		if (root->left != NULL) {
@@ -224,6 +245,7 @@ TreeNode* BinaryTree::deleteByName(string data, TreeNode *parent, TreeNode *root
 	}
 }
 
+// Returns the left most node in a sub-tree
 City BinaryTree::getMin(TreeNode *root) {
 	if (root->left != NULL) {
 		return getMin(root->left);
@@ -231,6 +253,8 @@ City BinaryTree::getMin(TreeNode *root) {
 	return root->city;
 }
 
+// Returns the city object which matches the cooridinates,
+// used when deleting a node by name and coordinates
 TreeNode* BinaryTree::findCityByCoordinates(pair<double, double> coordinates, TreeNode *root) {
 	if (root == NULL) {
 		return NULL;
@@ -258,7 +282,13 @@ TreeNode* BinaryTree::findCityByCoordinates(pair<double, double> coordinates) {
 	return findCityByCoordinates(coordinates, root);
 }
 
-bool BinaryTree::deleteByCoordinatesHelper(pair<double, double> coordinates) {
+// This allows me to delete a city when I don't know it's name but
+// I do know where it's located as I have it's coordinates. This uses
+// the findCityByCordinates helper method to return the object I wish
+// to delete and then I extract the name from the oject and call the
+// deleteByNameAndCoordinate method which then deletes the node and
+// arranges the tree accordingly
+bool BinaryTree::deleteByCoordinates(pair<double, double> coordinates) {
 	TreeNode *data = findCityByCoordinates(coordinates);
 	if (data != NULL) {
 		return deleteByNameAndCoordinates(data->city.city, data->city.coordinates);
@@ -266,6 +296,7 @@ bool BinaryTree::deleteByCoordinatesHelper(pair<double, double> coordinates) {
 	return false;
 }
 
+// Allows me to delete a node by name and coordinates from the tree
 bool BinaryTree::deleteByNameAndCoordinates(string name, pair<double, double> coordinates) {
 	if (root == NULL) {
 		return false;
@@ -334,6 +365,8 @@ TreeNode* BinaryTree::deleteByNameAndCoordinates(string name, pair<double, doubl
 	}
 }
 
+// Allows me print out all the city nodes within a specific KM distance from
+// that point
 void BinaryTree::printAllRecordsInDistance(pair<double, double> point, double distanceBelow) {
 	if (root == NULL) {
 		return;

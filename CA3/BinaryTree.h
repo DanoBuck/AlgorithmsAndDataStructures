@@ -1,6 +1,8 @@
+// Daniel Buckley
+// X00109141
+
 #pragma once
 #include "TreeNode.h"
-
 
 class BinaryTree {
 private:
@@ -27,7 +29,7 @@ public:
 	bool searchByCoordinate(pair<double, double>);
 	bool searchByName(string);
 	TreeNode* findCityByCoordinates(pair<double, double>);
-	bool deleteByCoordinatesHelper(pair<double, double>);
+	bool deleteByCoordinates(pair<double, double>);
 	bool deleteByNameAndCoordinates(string, pair<double, double>);
 	bool deleteByName(string);
 

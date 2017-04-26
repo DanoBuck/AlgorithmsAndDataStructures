@@ -1,3 +1,6 @@
+// Daniel Buckley
+// X00109141
+
 #pragma once
 #include <string>
 using namespace std;

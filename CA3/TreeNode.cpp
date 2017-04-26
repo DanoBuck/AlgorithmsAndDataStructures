@@ -1,3 +1,6 @@
+// Daniel Buckley
+// X00109141
+
 #include "TreeNode.h"
 
 TreeNode::TreeNode() {
