@@ -94,8 +94,8 @@ int main() {
 
 	cpu_duration = (clock() - startcputime) / (double)CLOCKS_PER_SEC;
 	wctduration = (std::chrono::system_clock::now() - wcts);
-	cout << "\nTree coordinates Searches Finished in " << cpu_duration << " seconds [CPU Clock] \n";
-	cout << "Tree coordinates Searches Finished in " << wctduration.count() << " seconds [Wall Clock]\n";
+	cout << "\nTree names Searches Finished in " << cpu_duration << " seconds [CPU Clock] \n";
+	cout << "Tree names Searches Finished in " << wctduration.count() << " seconds [Wall Clock]\n";
 
 	startcputime = std::clock();
 	wcts = std::chrono::system_clock::now();
