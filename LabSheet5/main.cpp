@@ -2,11 +2,11 @@
 using namespace std;
 
 int minDistance(int[], bool[]);
-void printDistances(int[], int, int[]);
-void dijkstraToEveryOtherNode(int[8][8], int);
-void dijkstraBetweenTwoPoints(int [8][8], int, int);
-char getLetter(int);
-void printPath(int[], int);
+void printDistances(int[], int, int[], char*);
+void dijkstraToEveryOtherNode(int[8][8], int, char*);
+void dijkstraBetweenTwoPoints(int [8][8], int, int, char*);
+char getLetter(char*, int);
+void printPath(int[], int, char*);
 
 int main() {
 
@@ -22,14 +22,16 @@ int main() {
 	/* H = 7 */ {0, 1, 0, 0, 0, 3, 0, 0}
 	};
 
-	dijkstraToEveryOtherNode(graph, 0);
+	char letters[] = { 'A','B','C','D','E','F','G','H' };
+
+	dijkstraToEveryOtherNode(graph, 0, letters);
 	cout << "\n";
-	dijkstraBetweenTwoPoints(graph, 0, 7);
+	dijkstraBetweenTwoPoints(graph, 0, 7, letters);
 
 	cout << "\n";
-	dijkstraToEveryOtherNode(graph, 4);
+	dijkstraToEveryOtherNode(graph, 4, letters);
 	cout << "\n";
-	dijkstraBetweenTwoPoints(graph, 4, 7);
+	dijkstraBetweenTwoPoints(graph, 4, 7, letters);
 
 	system("pause");
 	return 0;
@@ -56,13 +58,13 @@ int minDistance(int distances[], bool sptSet[])
 	return min_index;
 }
 
-void printDistances(int distances[], int start, int parent[])
+void printDistances(int distances[], int start, int parent[], char *letters)
 {
 	cout << "Vertex \tDistance from Source\t\tPaths\n";
 	for (int i = 0; i < 8; i++) {
 		if (i != start) {
-			cout << "   " << getLetter(i) << " \t   " << distances[i] << "\t\t\t\t" << getLetter(start) << " -> ";
-			printPath(parent, i);
+			cout << "   " << getLetter(letters, i) << " \t   " << distances[i] << "\t\t\t\t" << getLetter(letters, start) << " -> ";
+			printPath(parent, i, letters);
 			cout << "\n";
 		}
 	}
@@ -75,42 +77,19 @@ void printDistances(int distances[], int start, int parent[])
 *    Availability: http://www.geeksforgeeks.org/printing-paths-dijkstras-shortest-path-algorithm/
 *
 ***************************************************************************************/
-void printPath(int parent[], int j)
+void printPath(int parent[], int j, char *letters)
 {
 	if (parent[j] == -1) {
 		return;
 	}
 
-	printPath(parent, parent[j]);
+	printPath(parent, parent[j], letters);
 
-	cout << getLetter(j) << " -> ";
+	cout << getLetter(letters, j) << " -> ";
 }
 
-char getLetter(int index) {
-	if (index == 0) {
-		return 'A';
-	}
-	else if (index == 1) {
-		return 'B';
-	}
-	else if (index == 2) {
-		return 'C';
-	}
-	else if (index == 3) {
-		return 'D';
-	}
-	else if (index == 4) {
-		return 'E';
-	}
-	else if (index == 5) {
-		return 'F';
-	}
-	else if (index == 6) {
-		return 'G';
-	}
-	else if (index == 7) {
-		return 'H';
-	}
+char getLetter(char *letters, int index) {
+	return letters[index];
 }
 
 /***************************************************************************************
@@ -121,9 +100,9 @@ char getLetter(int index) {
 *    Availability: http://www.geeksforgeeks.org/greedy-algorithms-set-6-dijkstras-shortest-path-algorithm/
 *
 ***************************************************************************************/
-void dijkstraToEveryOtherNode(int graph[8][8], int start)
+void dijkstraToEveryOtherNode(int graph[8][8], int start, char *letters)
 {
-	cout << "*****Shortest path from " << getLetter(start) << " to every other node*****\n";
+	cout << "*****Shortest path from " << getLetter(letters, start) << " to every other node*****\n";
 	int distances[8];
 
 	bool processed[8];
@@ -149,7 +128,7 @@ void dijkstraToEveryOtherNode(int graph[8][8], int start)
 			}
 		}
 	}
-	printDistances(distances, start, parent);
+	printDistances(distances, start, parent, letters);
 }
 
 /***************************************************************************************
@@ -160,7 +139,7 @@ void dijkstraToEveryOtherNode(int graph[8][8], int start)
 *    Availability: http://www.geeksforgeeks.org/greedy-algorithms-set-6-dijkstras-shortest-path-algorithm/
 *
 ***************************************************************************************/
-void dijkstraBetweenTwoPoints(int graph[8][8], int start, int end) {
+void dijkstraBetweenTwoPoints(int graph[8][8], int start, int end, char *letters) {
 	cout << "*****Shortest path from one node to another*****\n";
 	int distances[8];
 
@@ -184,5 +163,5 @@ void dijkstraBetweenTwoPoints(int graph[8][8], int start, int end) {
 		}
 	}
 
-	cout << "Distance from " << getLetter(start) << " to " << getLetter(end) << " is " << distances[end] << "\n";
+	cout << "Distance from " << getLetter(letters, start) << " to " << getLetter(letters ,end) << " is " << distances[end] << "\n";
 }
