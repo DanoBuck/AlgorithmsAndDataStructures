@@ -2,10 +2,11 @@
 using namespace std;
 
 int minDistance(int[], bool[]);
-void printDistances(int[], int);
+void printDistances(int[], int, int[]);
 void dijkstraToEveryOtherNode(int[8][8], int);
 void dijkstraBetweenTwoPoints(int [8][8], int, int);
 char getLetter(int);
+void printPath(int[], int);
 
 int main() {
 
@@ -55,14 +56,34 @@ int minDistance(int distances[], bool sptSet[])
 	return min_index;
 }
 
-void printDistances(int distances[], int start)
+void printDistances(int distances[], int start, int parent[])
 {
-	cout << "Vertex \tDistance from Source\n";
+	cout << "Vertex \tDistance from Source\t\tPaths\n";
 	for (int i = 0; i < 8; i++) {
 		if (i != start) {
-			cout << "   " << getLetter(i) << " \t   " << distances[i] << "\n";
+			cout << "   " << getLetter(i) << " \t   " << distances[i] << "\t\t\t\t" << getLetter(start) << " -> ";
+			printPath(parent, i);
+			cout << "\n";
 		}
 	}
+}
+
+/***************************************************************************************
+
+*    Usage: Used
+*    Date: 03/05/2017
+*    Availability: http://www.geeksforgeeks.org/printing-paths-dijkstras-shortest-path-algorithm/
+*
+***************************************************************************************/
+void printPath(int parent[], int j)
+{
+	if (parent[j] == -1) {
+		return;
+	}
+
+	printPath(parent, parent[j]);
+
+	cout << getLetter(j) << " -> ";
 }
 
 char getLetter(int index) {
@@ -106,9 +127,12 @@ void dijkstraToEveryOtherNode(int graph[8][8], int start)
 	int distances[8];
 
 	bool processed[8];
+	int parent[8];
 
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 8; i++) {
 		distances[i] = INT_MAX, processed[i] = false;
+		parent[i] = -1;
+	}
 
 	distances[start] = 0;
 
@@ -121,10 +145,11 @@ void dijkstraToEveryOtherNode(int graph[8][8], int start)
 			if (!processed[j] && graph[minDist][j] && distances[minDist] != INT_MAX
 				&& distances[minDist] + graph[minDist][j] < distances[j]) {
 				distances[j] = distances[minDist] + graph[minDist][j];
+				parent[j] = minDist;
 			}
 		}
 	}
-	printDistances(distances, start);
+	printDistances(distances, start, parent);
 }
 
 /***************************************************************************************
